@@ -13,8 +13,31 @@ def markdown_to_blocks(markdown):
     lines = markdown.split("\n")
     blocks = []
     current_block = []
+    inside_code = False
+
     for line in lines:
-        if line != "":
+        is_fence = line.strip().startswith("```")
+        if is_fence:
+            if not inside_code:
+                # starting a code block
+                inside_code = True
+                if current_block:
+                    blocks.append("\n".join(current_block).strip())
+                    current_block = []
+                current_block.append(line)
+            else:
+                # ending a code block
+                current_block.append(line)
+                blocks.append("\n".join(current_block).strip())
+                current_block = []
+                inside_code = False
+            continue
+
+        if inside_code:
+            current_block.append(line)
+            continue
+
+        if line.strip() != "":
             current_block.append(line)
         elif current_block != []:
             blocks.append("\n".join(current_block).strip())
