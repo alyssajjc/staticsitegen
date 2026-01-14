@@ -1,5 +1,5 @@
 import unittest
-from textnode import *
+from src.textnode import *
 
 class TestTextToLeafNode(unittest.TestCase):
     def test_text(self):

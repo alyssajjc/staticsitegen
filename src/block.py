@@ -57,8 +57,11 @@ def block_to_block_type(block):
     unordered_possible = True
     ordered_possible = True
     for line in lines:
+        stripped = line.strip()
+        if stripped == "":
+            continue
         line_match = re.match(r"[0-9]+.", line)
-        if not line.startswith("> "):
+        if not line.startswith(">"):
             quote_possible = False
         if not line.startswith("- "):
             unordered_possible = False

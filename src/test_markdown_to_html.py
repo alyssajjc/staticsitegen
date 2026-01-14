@@ -58,7 +58,6 @@ class MyTestCase(unittest.TestCase):
 
         node = markdown_to_html_node(md)
         html = node.to_html()
-        print(html)
         self.assertEqual(html, "<div><ul><li>list item 1</li><li>list item 2</li><li>list item 3</li></ul></div>")
 
     def test_ordered_list(self):
@@ -70,7 +69,6 @@ class MyTestCase(unittest.TestCase):
 
         node = markdown_to_html_node(md)
         html = node.to_html()
-        print(html)
         self.assertEqual(html, "<div><ol><li>list item 1</li><li>list item 2</li><li>list item 3</li></ol></div>")
 
     def test_headers(self):

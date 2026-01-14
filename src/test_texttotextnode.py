@@ -1,6 +1,6 @@
 import unittest
-from split_nodes import text_to_textnodes
-from textnode import TextNode, TextType
+from src.split_nodes import text_to_textnodes
+from src.textnode import TextNode, TextType
 
 
 class TestTextToNode(unittest.TestCase):

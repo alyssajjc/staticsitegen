@@ -1,23 +1,17 @@
-from block import markdown_to_blocks, block_to_block_type, BlockType
-from src.htmlnode import LeafNode
-from textnode import TextType, text_node_to_html_node, TextNode
-from htmlnode import HTMLNode, ParentNode
-from split_nodes import text_to_textnodes
+from src.block import markdown_to_blocks, block_to_block_type, BlockType
+from src.textnode import TextType, text_node_to_html_node, TextNode
+from src.htmlnode import HTMLNode, ParentNode
+from src.split_nodes import text_to_textnodes
 import re
 
 def markdown_to_html_node(markdown):
-    # markdown into blocks
-    # for each block
-        # check block type
-        # create HTMLnode from block
-        # assign child nodes (text_to_children(text) except for node)
-    # make all blocks children under a single div HTML parent
     raw_blocks = markdown_to_blocks(markdown)
     blocks = []
 
     for block in raw_blocks:
+        print("Block Raw:", repr(block))
         block_type = block_to_block_type(block)
-        print(block, block_type)
+        print("Block Type:", block_type)
         match block_type:
             case BlockType.CODE:
                 block = block.removeprefix("```\n")
@@ -42,7 +36,9 @@ def markdown_to_html_node(markdown):
 
             case BlockType.QUOTE:
                 lines = block.split("\n")
-                lines = [line.removeprefix("> ") for line in lines]
+                lines = [line.removeprefix(">") for line in lines]
+                print(lines)
+                lines = [line.strip() for line in lines if line.strip() != "" and not line.strip().startswith("--")]
                 block_text = " ".join(lines)
                 block_node = ParentNode("blockquote", children = text_to_children(block_text))
                 blocks.append(block_node)
