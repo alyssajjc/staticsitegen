@@ -7,7 +7,7 @@ def copy_src_to_dest(source, dest):
     # delete all contents of dest
     if os.path.exists(dest):
         shutil.rmtree(dest)
-    os.mkdir("public")
+    os.mkdir(dest)
     # copy all files from source to dest
     for file in os.listdir(source):
         copy_src(source, dest, file)
