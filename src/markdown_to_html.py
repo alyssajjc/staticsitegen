@@ -9,9 +9,7 @@ def markdown_to_html_node(markdown):
     blocks = []
 
     for block in raw_blocks:
-        print("Block Raw:", repr(block))
         block_type = block_to_block_type(block)
-        print("Block Type:", block_type)
         match block_type:
             case BlockType.CODE:
                 block = block.removeprefix("```\n")
@@ -37,7 +35,6 @@ def markdown_to_html_node(markdown):
             case BlockType.QUOTE:
                 lines = block.split("\n")
                 lines = [line.removeprefix(">") for line in lines]
-                print(lines)
                 lines = [line.strip() for line in lines if line.strip() != "" and not line.strip().startswith("--")]
                 block_text = " ".join(lines)
                 block_node = ParentNode("blockquote", children = text_to_children(block_text))
